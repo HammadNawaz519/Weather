@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Dashboard</title>
+  <link rel="icon" type="image/png" href="weather-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- ═══════ SIDEBAR ═══════ -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 15a4 4 0 0 0 4 4h9a5 5 0 1 0-.1-9.999 5.002 5.002 0 0 0-9.78 2.096A4.001 4.001 0 0 0 3 15z" />
+        </svg>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-panel="weather">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 15a4 4 0 0 0 4 4h9a5 5 0 1 0-.1-9.999 5.002 5.002 0 0 0-9.78 2.096A4.001 4.001 0 0 0 3 15z" />
+          </svg>
+          <span>Weather</span>
+        </button>
+        <button class="nav-btn" data-panel="cities">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span>Cities</span>
+        </button>
+        <button class="nav-btn" data-panel="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ═══════ PANELS ═══════ -->
+    <div class="panel-area">
+
+      <!-- ══ WEATHER PANEL ══ -->
+      <div class="panel active" id="panel-weather">
+        <div class="weather-layout">
+
+          <!-- MAIN -->
+          <div class="weather-main">
+
+            <!-- Top bar -->
+            <header class="top-bar">
+              <div class="search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input id="searchInput" type="text" placeholder="Search for a city..." autocomplete="off" />
+              </div>
+              <div class="top-clock">
+                <div class="tb-time" id="tbTime">12:00:00 AM</div>
+                <div class="tb-date" id="tbDate">—</div>
+              </div>
+            </header>
+
+            <!-- HERO (no air-conditions below — moved inside hero) -->
+            <section class="hero-card" id="heroCard">
+              <div class="hero-bg" id="heroBg"></div>
+              <div class="hero-body">
+                <!-- Left info -->
+                <div class="hero-left">
+                  <div class="hero-loc">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span id="heroCity">—</span>
+                  </div>
+                  <div class="hero-cond" id="heroCondition">Loading weather...</div>
+                  <div class="hero-temp-row">
+                    <span class="hero-temp" id="heroTemp">--</span>
+                    <span class="hero-deg" id="heroDeg">°C</span>
+                  </div>
+                  <div class="hero-hilow">
+                    <span>H: <b id="heroH">--</b>°</span>
+                    <span class="sep">·</span>
+                    <span>L: <b id="heroL">--</b>°</span>
+                  </div>
+                  <!-- Air metrics inside hero -->
+                  <div class="hero-metrics">
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                      </svg>
+                      <span id="mHumidity">--%</span>
+                      <label>Humidity</label>
+                    </div>
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                          d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                      </svg>
+                      <span id="mWind">-- km/h</span>
+                      <label>Wind</label>
+                    </div>
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+                      </svg>
+                      <span id="mFeels">--°</span>
+                      <label>Feels Like</label>
+                    </div>
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                      <span id="mVis">-- km</span>
+                      <label>Visibility</label>
+                    </div>
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                      <span id="mPressure">-- hPa</span>
+                      <label>Pressure</label>
+                    </div>
+                    <div class="metric-chip">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                      </svg>
+                      <span id="mUV">--</span>
+                      <label>UV Index</label>
+                    </div>
+                  </div>
+                </div>
+                <!-- Right icon -->
+                <div class="hero-right">
+                  <img class="hero-icon" id="heroIcon" src="" alt="" />
+                  <div class="hero-rain-badge" id="heroRain">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                    </svg>
+                    <span>--% rain</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- HOURLY -->
+            <section class="hourly-card" id="hourlySection">
+              <div class="hourly-label">Today's Forecast</div>
+              <div class="hourly-row" id="hourlyRow"></div>
+            </section>
+
+          </div><!-- /weather-main -->
+
+          <!-- RIGHT PANEL -->
+          <aside class="right-panel">
+            <div class="rp-header">
+              <span class="rp-title">7-Day Forecast</span>
+              <span class="rp-sub" id="rpCityLabel">—</span>
+            </div>
+            <div class="forecast-list" id="forecastList"></div>
+          </aside>
+
+        </div>
+      </div><!-- /panel-weather -->
+
+      <!-- ══ CITIES PANEL ══ -->
+      <div class="panel" id="panel-cities">
+        <div class="cities-layout">
+
+          <div class="cities-topbar">
+            <div>
+              <h1 class="pg-title">My Cities</h1>
+              <p class="pg-sub">Your saved weather locations</p>
+            </div>
+            <div class="cities-add-row">
+              <div class="cities-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input id="cityAddInput" type="text" placeholder="Search for a city to add..." autocomplete="off" />
+              </div>
+              <button class="btn-add" id="cityAddBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add City
+              </button>
+            </div>
+          </div>
+
+          <div class="cities-grid" id="citiesGrid"></div>
+
+          <div class="cities-empty" id="citiesEmpty">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <h3>No cities saved yet</h3>
+            <p>Add cities above to track their weather at a glance</p>
+          </div>
+
+        </div>
+      </div><!-- /panel-cities -->
+
+      <!-- ══ SETTINGS PANEL ══ -->
+      <div class="panel" id="panel-settings">
+        <div class="settings-center">
+          <div class="settings-wrap">
+
+            <div class="settings-pg-header">
+              <h1 class="pg-title">Settings</h1>
+              <p class="pg-sub">Customize your weather dashboard</p>
+            </div>
+
+            <div class="settings-grid">
+
+              <!-- Units -->
+              <div class="sg-card">
+                <div class="sg-card-icon blue">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+                  </svg>
+                </div>
+                <div class="sg-card-body">
+                  <div class="sg-card-title">Temperature Unit</div>
+                  <div class="sg-card-desc">Celsius or Fahrenheit</div>
+                </div>
+                <div class="seg-ctrl" id="tempUnitCtrl">
+                  <button class="seg-btn active" data-val="metric">°C</button>
+                  <button class="seg-btn" data-val="imperial">°F</button>
+                </div>
+              </div>
+
+              <div class="sg-card">
+                <div class="sg-card-icon green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                  </svg>
+                </div>
+                <div class="sg-card-body">
+                  <div class="sg-card-title">Wind Speed Unit</div>
+                  <div class="sg-card-desc">km/h, m/s or mph</div>
+                </div>
+                <div class="seg-ctrl" id="windUnitCtrl">
+                  <button class="seg-btn active" data-val="kmh">km/h</button>
+                  <button class="seg-btn" data-val="ms">m/s</button>
+                  <button class="seg-btn" data-val="mph">mph</button>
+                </div>
+              </div>
+
+              <div class="sg-card">
+                <div class="sg-card-icon orange">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div class="sg-card-body">
+                  <div class="sg-card-title">Home City</div>
+                  <div class="sg-card-desc">Loads on startup</div>
+                </div>
+                <div class="sg-card-action">
+                  <input class="sg-input" id="defaultCityInput" type="text" placeholder="e.g. Lahore" />
+                  <button class="btn-save" id="saveDefaultCity">Save</button>
+                </div>
+              </div>
+
+              <div class="sg-card">
+                <div class="sg-card-icon purple">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                  </svg>
+                </div>
+                <div class="sg-card-body">
+                  <div class="sg-card-title">Use My Location</div>
+                  <div class="sg-card-desc">Auto-detect on startup</div>
+                </div>
+                <label class="tog">
+                  <input type="checkbox" id="autoLocToggle">
+                  <span class="tog-track"><span class="tog-thumb"></span></span>
+                </label>
+              </div>
+
+              <div class="sg-card">
+                <div class="sg-card-icon teal">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M3 9h18M9 21V9" />
+                  </svg>
+                </div>
+                <div class="sg-card-body">
+                  <div class="sg-card-title">Show Hourly Forecast</div>
+                  <div class="sg-card-desc">Display hourly strip on main page</div>
+                </div>
+                <label class="tog">
+                  <input type="checkbox" id="showHourlyToggle" checked>
+                  <span class="tog-track"><span class="tog-thumb"></span></span>
+                </label>
+              </div>
+
+              <div class="sg-card">
+                <div class="sg-card-icon pink">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33" />
+                  </svg>
+                </div>
+                <div class="sg-card-body">
+                  <div class="sg-card-title">API Info</div>
+                  <div class="sg-card-desc">OpenWeatherMap · Free Tier</div>
+                </div>
+                <span class="sg-badge">v2.0</span>
+              </div>
+
+            </div><!-- /settings-grid -->
+          </div>
+        </div>
+      </div><!-- /panel-settings -->
+
+    </div><!-- /panel-area -->
+  </div><!-- /app -->
+
+  <div class="toast-wrap" id="toastWrap"></div>
+  <script src="script.js"></script>
+</body>
+
+</html>
