@@ -181,22 +181,17 @@ function renderCurrent(d, list) {
   };
   ico.src = iconUrl(icon);
 
-  // Rain badge
-  get('heroRain').innerHTML = `
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-    <span>${d.clouds.all}% rain chance</span>
-  `;
-
-  // Metric chips — all with correct unit labels
+  // Metric chips — all optional so removing chips from HTML never breaks the app
   const windStr = formatWind(d.wind.speed);
   const feelsStr = `${Math.round(d.main.feels_like)}${unit}`;
   const visStr = d.visibility ? `${(d.visibility / 1000).toFixed(1)} km` : 'N/A';
-  get('mHumidity').textContent = `${d.main.humidity}%`;
-  get('mWind').textContent = windStr;
-  get('mFeels').textContent = feelsStr;
-  get('mVis').textContent = visStr;
-  get('mPressure').textContent = `${d.main.pressure} hPa`;
-  get('mUV').textContent = Math.max(0, Math.round((100 - d.clouds.all) / 11));
+  const hum = get('mHumidity');   if (hum)      hum.textContent      = `${d.main.humidity}%`;
+  const wind = get('mWind');      if (wind)     wind.textContent     = windStr;
+  const feels = get('mFeels');    if (feels)    feels.textContent    = feelsStr;
+  const vis = get('mVis');        if (vis)      vis.textContent      = visStr;
+  const pres = get('mPressure');  if (pres)     pres.textContent     = `${d.main.pressure} hPa`;
+  const uv = get('mUV');          if (uv)       uv.textContent       = Math.max(0, Math.round((100 - d.clouds.all) / 11));
+  const rain = get('heroRain');   if (rain)     rain.innerHTML       = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><span>${d.clouds.all}% rain chance</span>`;
 
   // City label in right panel
   get('rpCityLabel').textContent = `${d.name}, ${d.sys.country}`;

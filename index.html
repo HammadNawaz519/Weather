@@ -97,7 +97,7 @@
                     <span class="sep">·</span>
                     <span>L: <b id="heroL">--</b>°</span>
                   </div>
-                  <!-- Air metrics inside hero -->
+                  <!-- Air metrics inside hero: only show Humidity + Wind -->
                   <div class="hero-metrics">
                     <div class="metric-chip">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -114,53 +114,17 @@
                       <span id="mWind">-- km/h</span>
                       <label>Wind</label>
                     </div>
-                    <div class="metric-chip">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
-                      </svg>
-                      <span id="mFeels">--°</span>
-                      <label>Feels Like</label>
-                    </div>
-                    <div class="metric-chip">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                        <circle cx="12" cy="12" r="3" />
-                      </svg>
-                      <span id="mVis">-- km</span>
-                      <label>Visibility</label>
-                    </div>
-                    <div class="metric-chip">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <polyline points="12 6 12 12 16 14" />
-                      </svg>
-                      <span id="mPressure">-- hPa</span>
-                      <label>Pressure</label>
-                    </div>
-                    <div class="metric-chip">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5" />
-                        <line x1="12" y1="1" x2="12" y2="3" />
-                        <line x1="12" y1="21" x2="12" y2="23" />
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                        <line x1="1" y1="12" x2="3" y2="12" />
-                        <line x1="21" y1="12" x2="23" y2="12" />
-                      </svg>
-                      <span id="mUV">--</span>
-                      <label>UV Index</label>
-                    </div>
+                    <!-- Hidden chips — IDs kept for JS, not visible -->
+                    <span id="mFeels" style="display:none"></span>
+                    <span id="mVis" style="display:none"></span>
+                    <span id="mPressure" style="display:none"></span>
+                    <span id="mUV" style="display:none"></span>
                   </div>
                 </div>
-                <!-- Right icon -->
                 <div class="hero-right">
                   <img class="hero-icon" id="heroIcon" src="" alt="" />
-                  <div class="hero-rain-badge" id="heroRain">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
-                    </svg>
-                    <span>--% rain</span>
-                  </div>
+                  <!-- Rain badge hidden from UI but kept in DOM for JS -->
+                  <div id="heroRain" style="display:none"></div>
                 </div>
               </div>
             </section>
@@ -176,7 +140,7 @@
           <!-- RIGHT PANEL -->
           <aside class="right-panel">
             <div class="rp-header">
-              <span class="rp-title">7-Day Forecast</span>
+              <span class="rp-title">6-Day Forecast</span>
               <span class="rp-sub" id="rpCityLabel">—</span>
             </div>
             <div class="forecast-list" id="forecastList"></div>
@@ -207,7 +171,7 @@
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                Add City
+                <span class="btn-add-txt">Add</span>
               </button>
             </div>
           </div>

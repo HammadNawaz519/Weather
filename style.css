@@ -125,7 +125,7 @@ img {
    • Cities   →  2-col card grid
    • Settings →  single-col cards
 ════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width: 980px) {
 
   /* ─── Root: let the page scroll ─────────────── */
   html, body {
@@ -406,22 +406,36 @@ img {
   .pg-sub    { font-size: 0.78rem; }
 
   .cities-add-row {
-    flex-direction: row;
+    flex-direction: row;        /* Side by side again */
+    align-items: center;
     max-width: 100%;
     margin-top: 10px;
+    gap: 12px;
   }
 
-  .cities-search { height: 40px; }
+  .cities-search { 
+    height: 48px;               /* slightly taller, premium feel */
+    flex: 1;
+    min-width: 0;               /* prevents flex overflow */
+  }
 
   .btn-add {
-    height: 40px;
-    padding: 0 14px;
-    font-size: 0.8rem;
-    white-space: nowrap;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
     flex-shrink: 0;
+    border-radius: 50%;         /* Premium circle button */
   }
 
-  .btn-add svg { width: 13px; height: 13px; }
+  .btn-add-txt {
+    display: none;              /* Safely hide text on mobile */
+  }
+
+  .btn-add svg { 
+    width: 20px; 
+    height: 20px; 
+  }
 
   .cities-grid {
     grid-template-columns: 1fr;       /* single column on mobile */
