@@ -117,6 +117,424 @@ img {
   z-index: 10;
 }
 
+/* ════════════════════════════════════════
+   MOBILE  ≤ 768 px
+   • Sidebar  →  sticky top nav bar
+   • Panels   →  full-width, natural height, page scrolls
+   • Weather  →  hero | hourly | 7-day stacked
+   • Cities   →  2-col card grid
+   • Settings →  single-col cards
+════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ─── Root: let the page scroll ─────────────── */
+  html, body {
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  /* ─── App wrapper ────────────────────────────── */
+  .app {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
+  /* ─── Sidebar → sticky top bar ──────────────── */
+  .sidebar {
+    position: sticky !important;
+    top: 0 !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    height: 56px !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border);
+    padding: 0 14px !important;
+    gap: 8px !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 200 !important;
+  }
+
+  /* hide the brand logo on mobile — center the 3 nav buttons */
+  .sidebar-brand {
+    display: none !important;
+  }
+
+  .sidebar-nav {
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    gap: 6px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    flex: 1;
+    justify-content: center !important;  /* centered */
+    align-items: center;
+  }
+
+  .nav-btn {
+    flex-direction: row !important;
+    width: auto !important;
+    padding: 7px 12px !important;
+    gap: 5px !important;
+    font-size: 0.72rem !important;
+    border-radius: 50px !important;
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .nav-btn svg {
+    width: 17px !important;
+    height: 17px !important;
+    flex-shrink: 0;
+  }
+
+  /* No left-side indicator bar on mobile */
+  .nav-btn.active::before { display: none !important; }
+
+
+  /* ─── Panel area ─────────────────────────────── */
+  .panel-area {
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+    flex: 1;
+  }
+
+  /* ALL panels: override absolute desktop layout */
+  .panel {
+    position: static !important;
+    inset: auto !important;
+    display: none;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .panel.active {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── WEATHER PANEL ──────────────────────────── */
+  #panel-weather,
+  #panel-weather.active {
+    flex-direction: column;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .weather-layout {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .weather-main {
+    padding: 12px 14px 0;
+    overflow: visible;
+    gap: 12px;
+  }
+
+  /* Search + clock row */
+  .top-bar {
+    height: auto;
+    gap: 8px;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .search-wrap {
+    flex: 1;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .tb-time { font-size: 0.85rem; }
+  .tb-date { font-size: 0.6rem; display: none; }
+
+  /* Hero card */
+  .hero-card {
+    flex: none;
+    min-height: 200px;
+    height: auto;
+    border-radius: var(--r);
+  }
+
+  .hero-body {
+    height: 200px;
+    padding: 16px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+  }
+
+  .hero-left {
+    flex: 1;
+    min-width: 0;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .hero-right {
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .hero-temp { font-size: 3.2rem; letter-spacing: -3px; }
+  .hero-deg  { font-size: 1rem; margin-top: 6px; }
+  .hero-cond { font-size: 0.78rem; }
+  .hero-loc  { font-size: 0.74rem; }
+
+  .hero-icon {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hero-rain-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  /* Metric chips */
+  .hero-metrics {
+    max-width: 100%;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  .metric-chip {
+    font-size: 0.64rem;
+    padding: 3px 8px 3px 6px;
+    gap: 4px;
+  }
+
+  .metric-chip svg { width: 10px; height: 10px; }
+
+  /* Hourly */
+  .hourly-card {
+    flex-shrink: 0;
+    padding: 12px 14px 10px;
+    border-radius: var(--r);
+    margin-top: 0;
+  }
+
+  .h-item { min-width: 54px; padding: 4px 3px 6px; }
+  .h-time { font-size: 0.62rem; }
+  .h-img  { width: 28px; height: 28px; }
+  .h-temp { font-size: 0.82rem; }
+
+  /* 7-day forecast — single premium rounded block */
+  .right-panel {
+    width: auto !important;
+    margin: 0 14px 24px 14px;          /* side margins so it floats like a card */
+    background: var(--card) !important;
+    border-radius: var(--r) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow-sm) !important;
+    height: auto !important;
+    min-height: 0;
+    flex-shrink: 0;
+  }
+
+  .rp-header {
+    padding: 16px 16px 8px;            /* clean header inside the card */
+  }
+
+  .forecast-list {
+    flex: none;
+    overflow: visible !important;      /* show ALL 7 rows */
+    max-height: none !important;
+    padding: 0 16px 16px;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Premium list style for each forecast row */
+  .fc-row {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid var(--border) !important; /* solid clean divider */
+    border-radius: 0 !important;
+    padding: 14px 0 !important;
+    grid-template-columns: 52px 44px 1fr auto;
+    box-shadow: none !important;
+  }
+
+  .fc-row:last-child {
+    border-bottom: none !important;
+  }
+
+  .fc-row.today-row {
+    background: transparent !important;
+    border-color: var(--border) !important;
+  }
+  .fc-row.today-row .fc-day {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .fc-row::before { display: none !important; }  /* remove left bar on mobile */
+
+  /* ─── CITIES PANEL ───────────────────────────── */
+  #panel-cities {
+    height: auto !important;
+    overflow: visible !important;
+    min-height: 0 !important;
+  }
+
+  .cities-layout {
+    height: auto;
+    padding: 16px 14px 80px;
+    gap: 14px;
+    overflow: visible;
+  }
+
+  .pg-title  { font-size: 1.25rem; }
+  .pg-sub    { font-size: 0.78rem; }
+
+  .cities-add-row {
+    flex-direction: row;
+    max-width: 100%;
+    margin-top: 10px;
+  }
+
+  .cities-search { height: 40px; }
+
+  .btn-add {
+    height: 40px;
+    padding: 0 14px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .btn-add svg { width: 13px; height: 13px; }
+
+  .cities-grid {
+    grid-template-columns: 1fr;       /* single column on mobile */
+    gap: 12px;
+    overflow: visible;
+    flex: none;
+  }
+
+  .city-card {
+    min-height: 170px;
+    border-radius: 18px;
+  }
+
+  .cc-icon    { width: 48px; height: 48px; }
+  .cc-name    { font-size: 0.95rem; }
+  .cc-country { font-size: 0.68rem; }
+  .cc-temp    { font-size: 2.5rem; letter-spacing: -2px; }
+  .cc-temp-unit { font-size: 1rem; }
+  .cc-desc    { font-size: 0.72rem; }
+
+  /* Always show delete on touch */
+  .cc-delete { opacity: 1; }
+
+  .cc-stat-val { font-size: 0.68rem; }
+  .cc-stat-lbl { font-size: 0.56rem; }
+
+  /* ─── SETTINGS PANEL ─────────────────────────── */
+  #panel-settings {
+    height: auto !important;
+    overflow: visible !important;
+    min-height: 0 !important;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .settings-center {
+    height: auto;
+    overflow: visible;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 16px 14px 40px;
+  }
+
+  .settings-wrap  { max-width: 100%; }
+
+  .settings-grid {
+    grid-template-columns: 1fr !important; /* force single column */
+    gap: 10px;
+  }
+
+  .sg-card {
+    padding: 14px;
+    gap: 12px;
+    flex-wrap: nowrap;         /* keep icon + body + control on one row */
+    align-items: center;
+  }
+
+  /* When the control is too wide (e.g. wind seg-ctrl with 3 buttons), allow wrap */
+  .sg-card:has(.seg-ctrl) {
+    flex-wrap: wrap;
+  }
+
+  .seg-ctrl { flex-shrink: 0; }
+  .seg-btn  { padding: 5px 10px; font-size: 0.74rem; }
+
+  .sg-card-action { flex-wrap: wrap; gap: 6px; }
+  .sg-input { width: 120px; }
+}
+
+/* ── Very small phones  ≤ 420 px ───────────────── */
+@media (max-width: 420px) {
+
+  .sidebar {
+    height: 52px;
+    padding: 0 10px;
+  }
+
+  .nav-btn {
+    padding: 6px 10px;
+    font-size: 0.65rem;
+    gap: 4px;
+  }
+
+  .nav-btn svg { width: 15px; height: 15px; }
+
+  .nav-btn span { display: none; }     /* icon-only on tiny phones */
+
+  .nav-btn {
+    border-radius: 10px;
+    padding: 7px 10px;
+  }
+
+  .hero-body  { height: 185px; padding: 14px; }
+  .hero-icon  { width: 76px; height: 76px; }
+  .hero-temp  { font-size: 2.7rem; }
+
+  .cities-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .city-card { min-height: 155px; }
+
+  .weather-main   { padding: 10px 10px 0; }
+  .hourly-card    { padding: 10px 10px 8px; }
+  .forecast-list  { padding: 6px 10px 12px; }
+  .cities-layout  { padding: 14px 10px 60px; }
+  .settings-center{ padding: 14px 10px 40px; }
+
+  .cities-search, .btn-add { height: 38px; }
+}
+
+
 .sidebar-brand {
   width: 34px;
   height: 34px;
@@ -506,7 +924,7 @@ img {
   width: 130px;
   height: 130px;
   object-fit: contain;
-  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 8px 16px rgba(15, 23, 42, 0.2)); /* makes white clouds pop */
   animation: floatIcon 4s ease-in-out infinite;
 }
 
@@ -596,9 +1014,10 @@ img {
 }
 
 .h-img {
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
+  filter: drop-shadow(0 3px 6px rgba(15, 23, 42, 0.15));
 }
 
 .h-temp {
@@ -725,24 +1144,25 @@ img {
   color: var(--accent);
 }
 
-/* Icon */
-.fc-icon-wrap {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  border-radius: 10px;
-  overflow: hidden;
-}
+  /* Icon */
+  .fc-icon-wrap {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 10px;
+    overflow: visible;
+  }
 
-.fc-img {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
+  .fc-img {
+    width: 42px;    /* slightly larger to look premium */
+    height: 42px;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(15, 23, 42, 0.15)); /* so white clouds are visible! */
+  }
 
 .fc-img-fallback {
   font-size: 1.4rem;
@@ -917,10 +1337,11 @@ img {
 .cities-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: max-content; /* Ensure rows don't squish vertically */
   gap: 16px;
   overflow-y: auto;
   flex: 1;
-  padding-bottom: 4px;
+  padding-bottom: 24px;
   align-content: start;
 }
 
@@ -935,6 +1356,7 @@ img {
   min-height: 180px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0; /* Prevent squishing when flex container gets tight */
 }
 
 .city-card:hover {
@@ -1026,10 +1448,10 @@ img {
 }
 
 .cc-icon {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
   margin-top: -6px;
   margin-right: -4px;
 }
