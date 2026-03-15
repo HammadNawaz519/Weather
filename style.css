@@ -1519,37 +1519,43 @@ img {
 
 .cc-stat {
   display: flex;
+  flex-direction: column;   /* stack value on top, label below */
   align-items: center;
-  gap: 5px;
+  gap: 2px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50px;
-  padding: 5px 12px;
+  border-radius: 12px;      /* rounded rect, not pill, so text has room */
+  padding: 8px 10px;
   flex: 1 1 0;
   min-width: 0;
-  white-space: normal;
   overflow: hidden;
+  text-align: center;
 }
 
 .cc-stat-icon {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
   color: rgba(255, 255, 255, 0.8);
   flex-shrink: 0;
+  margin-bottom: 2px;
 }
 
 .cc-stat-val {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #fff;
+  line-height: 1.2;
+  word-break: break-word;
 }
 
 .cc-stat-lbl {
-  font-size: 0.62rem;
-  color: rgba(255, 255, 255, 0.65);
-  margin-left: 2px;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  line-height: 1.1;
+  word-break: break-word;
 }
 
 /* Added time chip */
